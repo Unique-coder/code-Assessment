@@ -9,6 +9,7 @@ import { handleError, logger } from './middlewares/logEvents.js';
 
 // Access the routes by importing it into index.js
 import user from './routes/Users.js';
+import service from './routes/Service.js';
 
 const app = express();
 dotenv.config();
@@ -28,6 +29,7 @@ app.get('/routes', (req, res) => res.send('Routes are working well'));
 
 // Set-up the starting route for all route in post.js
 app.use('/api/user', user);
+app.use('/api/service', service);
 
 // mongoose connection
 mongoDB();

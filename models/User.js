@@ -67,4 +67,4 @@ userSchema.methods.comparePassword = async function (password) {
   return result;
 };
 
-export default Mongoose.model('Business', userSchema);
+export default Mongoose.model('User', userSchema);
