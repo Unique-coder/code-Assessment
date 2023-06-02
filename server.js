@@ -7,15 +7,15 @@ import { corsOptions } from './configs/corsOptions.js';
 import { mongoDB } from './databases/mongoDB.js';
 import { handleError, logger } from './middlewares/logEvents.js';
 
-// Access the routes by importing it into index.js
-import user from './routes/user.js';
-import service from './routes/service.js';
-
 const app = express();
 dotenv.config();
 
 //Our access port. Changes when we deploy with heroku
 const PORT = process.env.PORT || 6000;
+
+// Access the routes by importing it into index.js
+import service from './routes/service.js';
+import user from './routes/user.js';
 
 // middlewares
 app.use(logger);
