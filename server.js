@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 6000;
 
 // Access the routes by importing it into index.js
 import service from './routes/service.js';
-import user from './routes/user.js';
+import user from './routes/users.js';
 
 // middlewares
 app.use(logger);
