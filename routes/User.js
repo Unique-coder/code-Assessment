@@ -6,7 +6,7 @@ import {
   forgotPassword,
   resetPassword,
   updatePassword,
-} from '../controllers/Users.js';
+} from '../controllers/User.js';
 
 import auth_token from '../middlewares/auth_token.js';
 import isResetTokenValid from '../middlewares/userToken.js';

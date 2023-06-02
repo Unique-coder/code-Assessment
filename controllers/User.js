@@ -51,7 +51,7 @@ export const register = async (req, res) => {
   }
 };
 
-// Business can Login to their  account
+// User's can Login to their  account
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -98,5 +98,66 @@ export const login = async (req, res) => {
       status: 400,
       message: error.message,
     });
+  }
+};
+
+// update password of registered user
+export const updatePassword = async (req, res) => {
+  const { id: _id } = req.params;
+  const { newPassword: password } = req.body;
+  try {
+    const user = await User.findById(_id);
+    if (!user) return res.status(404).send('User not found');
+    console.log(_id, password);
+    const salt = await bcrypt.genSalt(10);
+    const newPassword = await bcrypt.hash(password, salt);
+
+    const changePassword = await User.findByIdAndUpdate(_id, {
+      password: newPassword,
+      accountLock: false,
+    });
+
+    res.status(200).json({
+      accountLock: changePassword.accountLock,
+      message: '✅ Password Changed',
+    });
+  } catch (error) {
+    res.status(400).send("❌ Couldn't update password");
+  }
+};
+
+// forgot password of registered user
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email, linkTag } = req.body;
+
+    if (!linkTag) return sendError(res, 'please provide a valid linkTag!');
+
+    const user = await User.findOne({ linkTag });
+    if (!user) return sendError(res, 'User not found, invalid request');
+
+    const token = await ResetToken.findOne({ owner: user._id });
+    if (token)
+      return sendError(
+        res,
+        'New request token can only be generated after 30 minutes'
+      );
+
+    const newToken = await randomBytes();
+    const resetToken = new ResetToken({ owner: user._id, token: newToken });
+    let uniqueLink = `${'http://localhost:3000'}/user/reset-password?q=${newToken}&e=${
+      user.email
+    }&d=${user._id}`;
+    const resetEmail = userResetPassword(uniqueLink, user.email);
+    await resetToken.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Password Reset link is sent to your email',
+    });
+  } catch (error) {
+    res
+      .status(400)
+      .json({ success: 'failed', message: 'Failed to reset password' });
   }
 };
