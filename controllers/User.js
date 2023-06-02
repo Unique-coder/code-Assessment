@@ -38,6 +38,7 @@ export const register = async (req, res) => {
       country,
       state,
       password: hashedPassword,
+      createdAt: new Date().toISOString().split('T')[0],
     });
     await user.save();
 
@@ -86,12 +87,12 @@ export const login = async (req, res) => {
     const { accountLock, firstName, lastName } = existingUser;
 
     res.status(201).json({
-      accountLock,
+      message: '✅ Successful Login',
       accessToken,
       _id: existingUser._id,
       name: `${firstName} ${lastName}`,
       email: existingUser.email,
-      message: '✅ Successful Login',
+      accountLock,
     });
   } catch (error) {
     return res.status(400).json({

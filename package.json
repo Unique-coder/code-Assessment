@@ -24,7 +24,7 @@
     "express-jwt": "^7.7.1",
     "flutterwave-node-v3": "^1.0.9",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.2",
+    "mongoose": "^7.2.2",
     "ngrok": "^4.3.3",
     "node-fetch": "^3.2.6",
     "nodemon": "^2.0.16"

@@ -1,7 +1,7 @@
-import Mongoose from 'mongoose';
-const { Schema } = Mongoose;
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
-const riderSchema = new Schema({
+const driverSchema = new Schema({
   id: {
     type: String,
   },
@@ -27,4 +27,4 @@ const riderSchema = new Schema({
   },
 });
 
-export default Mongoose.model('Riders', riderSchema);
+export default mongoose.model('driver', driverSchema);

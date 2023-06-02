@@ -8,8 +8,8 @@ import { mongoDB } from './databases/mongoDB.js';
 import { handleError, logger } from './middlewares/logEvents.js';
 
 // Access the routes by importing it into index.js
-import user from './routes/Users.js';
-import service from './routes/Service.js';
+import user from './routes/user.js';
+import service from './routes/service.js';
 
 const app = express();
 dotenv.config();

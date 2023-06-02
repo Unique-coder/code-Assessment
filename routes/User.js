@@ -4,9 +4,9 @@ import {
   register,
   login,
   forgotPassword,
-  resetPassword,
+  // resetPassword,
   updatePassword,
-} from '../controllers/User.js';
+} from '../controllers/user.js';
 
 import auth_token from '../middlewares/auth_token.js';
 import isResetTokenValid from '../middlewares/userToken.js';
@@ -21,6 +21,6 @@ router.patch('/change-password/:id', auth_token, updatePassword);
 
 router.post('/forgot-password', forgotPassword);
 
-router.post('/reset-password', isResetTokenValid, resetPassword);
+// router.post('/reset-password', isResetTokenValid, resetPassword);
 
 export default router;
